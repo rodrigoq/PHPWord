@@ -81,7 +81,7 @@ class Html
         self::$xpath = new \DOMXPath($dom);
         $node = $dom->getElementsByTagName('body');
 
-        self::parseNode($node->item(0), $element);
+        static::parseNode($node->item(0), $element);
         if (\PHP_VERSION_ID < 80000) {
             libxml_disable_entity_loader($orignalLibEntityLoader);
         }
@@ -244,7 +244,7 @@ class Html
             if (!empty($cNodes)) {
                 foreach ($cNodes as $cNode) {
                     if ($element instanceof AbstractContainer || $element instanceof Table || $element instanceof Row) {
-                        self::parseNode($cNode, $element, $styles, $data);
+                        static::parseNode($cNode, $element, $styles, $data);
                     }
                 }
             }
@@ -606,7 +606,7 @@ class Html
         if (!empty($cNodes)) {
             $listRun = $element->addListItemRun($data['listdepth'], $styles['list'], $styles['paragraph']);
             foreach ($cNodes as $cNode) {
-                self::parseNode($cNode, $listRun, $styles, $data);
+                static::parseNode($cNode, $listRun, $styles, $data);
             }
         }
     }
